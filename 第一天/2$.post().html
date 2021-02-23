@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+    <button id='btn'>按钮</button>
+    <script>
+        $(function () {
+            $('#btn').on('click', function () {
+                $.post('http://www.liulongbin.top:3006/api/addbook',
+                    { bookname: '少年阿11宾', author: '小贺', publisher: '人帅自由天帮' },
+                    function (res) {
+                        console.log(res);
+                    });
+            })
+        })
+    </script>
+</body>
+
+</html>

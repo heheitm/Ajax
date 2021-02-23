@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #angel {
+            position: absolute;
+        }
+    </style>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+    <img src="../img/angel.gif" alt="" id='angel'>
+    <script>
+        $(function () {
+            var timer = null;
+            var angel = $('#angel')
+            // 监听文档的 mousemove 事件
+            $(document).on('mousemove', function (e) {
+                //
+                if (timer) return;
+                // 设置图片的位置
+                timer = setTimeout(function () {
+                    $(angel).css('left', e.pageX + 'px').css('top', e.pageY + 'px')
+                    timer = null;
+                }, 16)
+            })
+        })
+    </script>
+</body>
+
+</html>

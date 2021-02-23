@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+    <button id='btn'>按钮</button>
+
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                    url: 'http://www.liulongbin.top:3006/api/jsonp?callback=abc&name=ls&age=30',
+                    dataType: 'jsonp',
+                    jsonpCallback: 'abc',
+                    success: function (res) {
+                        console.log(res);
+                    }
+                })
+            })
+        })
+       // $.ajax({
+       //     url: 'http://ajax.frontend.itheima.net:3006/api/jsonp?name=zs&age=20',
+       //     dataType: 'jsonp',
+       //     // 发送到服务端的参数名称，默认值为 callback
+       //     jsonp: 'callback',
+       //     // 自定义的回调函数名称，默认值为 jQueryxxx 格式
+       //     jsonpCallback: 'abc',
+       //     success: function (res) {
+       //         console.log(res)
+       //     }
+       // })
+    </script>
+</body>
+
+</html>

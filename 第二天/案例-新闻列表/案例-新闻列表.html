@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/news.css" />
+  <script src="./lib/jquery.js"></script>
+  <script src="./lib/template-web.js"></script>
+
+</head>
+
+<body>
+
+  <div id="news-list">
+
+  </div>
+
+  <!-- 定义模板 -->
+  <script type="text/html" id="tpl-news">
+      {{each data}}
+      <div class="news-item">
+        <!--图片的引入-->
+        <img class="thumb" src="{{'http://www.liulongbin.top:3006' + $value.img}}" alt="" />
+        <div class="right-box">
+          <h1 class="title">{{$value.title}}</h1>
+          <div class="tags">
+            {{each $value.tags}}
+            <span>{{$value}}</span>
+            {{/each}}
+          </div>
+          <div class="footer">
+            <div>
+              <span>{{$value.source}}</span>&nbsp;&nbsp;
+              <!--调用时间过滤器-->
+              <span>{{$value.time | dateFormat}}</span>
+            </div>
+            <span>评论数：{{$value.cmtcount}}</span>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </script>
+  <script>
+    $(function () {
+      //补零
+      function padZero(n) {
+        if (n < 10) {
+          return '0' + n
+        } else {
+          return n
+        }
+      }
+      //获取新闻数据
+      function getNews() {
+        $.get('http://www.liulongbin.top:3006/api/news',
+          function (res) {
+           // console.log(res);
+            if (res.status != 200) return alert('失败');
+            //遍历data
+            res.data.forEach(function (item) {
+              //console.log(item);
+              //循环遍历 转换成为 数组
+              item.tags = item.tags.split(',');
+              console.log(item.tags);
+            })
+            //获取模板
+            let str = template('tpl-news', res);
+            $('#news-list').html(str)
+          }
+        )
+      };
+      //调用函数
+      getNews();
+      // 定义处理时间的过滤器
+      template.defaults.imports.dateFormat = function (data) {
+        const datastr = new Date(data);
+        const y = datastr.getFullYear();
+        const m = datastr.getMonth() + 1;
+        const d = datastr.getDate();
+        const hh = padZero(datastr.getHours())
+        const mm = padZero(datastr.getMinutes())
+        const ss = padZero(datastr.getSeconds())
+
+        return y + '-' + m + '-' + d + ' ' + hh + ':' + mm + ':' + ss
+      };
+    })
+  </script>
+</body>
+
+</html>

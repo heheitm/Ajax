@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+    <form action="/login" target="_blank" method="post" id='f1'>
+        <input type="text" name="user_name" />
+        <input type="password" name="password" />
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        $(function () {
+            //给submit 提交按钮监听事件
+            $('#f1').on('submit', function (e) {
+                e.preventDefault();
+                //serialize() 可以一次性获取表单的数据
+                // input表单一定要有Name属性 且取名不一样
+                const str = $(this).serialize();
+                console.log(str);
+            })
+        })
+    </script>
+</body>
+
+</html>

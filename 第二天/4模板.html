@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/模板引擎.js"></script>
+</head>
+
+<body>
+    <!--1-->
+    <div id='container'></div>
+    <!--2模板-->
+    <script type='text/html' id='tpl'>
+        <h1>{{name}};</h1>
+        <h3>{{age}}</h3>
+        <div>
+            {{if flag === 0}}
+            flag的值是0
+            {{else if flag === 1}}
+            flag的值是1
+            {{/if}}
+        </div>
+        <ul>
+        {{each arr}}
+        <li>索引是:{{$index}}，循环项是:{{$value}}</li>
+        {{/each}}
+      </ul>
+      <!--dateFormat过滤器  管道操作符-->
+        <h1>
+            {{time | dateFormat}}
+        </h1>
+    </script>
+    <script>
+        // 定义处理时间的过滤器
+        template.defaults.imports.dateFormat = function (data) {
+            const datastr = new Date(data);
+            const y = datastr.getFullYear();
+            const m = datastr.getMonth() + 1;
+            const d = datastr.getDate();
+            return `${y} -${m}- ${d}`
+        }
+
+        //3定义数据
+        const data = {
+            name: '黑马',
+            age: "123123",
+            flag: 1,
+            arr: ['a', 'b', 'c'],
+            time: new Date()
+        };
+        //4调用template('模板id '，数据)
+        const str = template('tpl', data);
+        //渲染页面
+        $('#container').html(str);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 新建 FormData 对象
+        var fd = new FormData()
+        // 2. 为 FormData 添加表单项
+        //key值 value值
+        fd.append('uname', 'zs')
+        fd.append('upwd', '123456')
+        // 3. 创建 XHR 对象
+        var xhr = new XMLHttpRequest()
+
+      
+        // 4. 指定请求类型与URL地址
+        xhr.open('POST', 'http://www.liulongbin.top:3006/api/formdata')              
+
+        // 5. 直接提交 FormData 对象，这与提交网页表单的效果，完全一样
+        xhr.send(fd);
+
+        xhr.onreadystatechange = function () {
+            // 注册监听
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 把服务器的json字符串转成js对象
+                var result = JSON.parse(xhr.responseText)
+                console.log(result);
+                // console.log(xhr.responseText); 
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+    <button id='btn'>按钮</button>
+
+    <script>
+        $(function () {
+            $('#btn').on('click', function () {
+                //$.get(url,[data],callback())  
+                //请求资源的地址
+                //请求资源间携带的数据
+                //请求成功的回调函数
+                $.get('http://www.liulongbin.top:3006/api/getbooks',{id:1}, function (res) {
+                    console.log(res);
+                })
+            })
+        })
+
+    </script>
+</body>
+
+</html>
